@@ -12,9 +12,7 @@ const AudioRecordingScreen = () => {
   return (
     <View style={styles.container}>
       <Text style={styles.largeTitle}>Press below button to talk</Text>
-      {isRecording && (
         <Text style={styles.smallTitle}>Press button again to stop recording</Text>
-      )}
       <BigAudioButton title={isRecording ? 'STOP' : 'START'} onPress={handlePress} />
     </View>
   );

@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { TouchableOpacity, StyleSheet, Text } from 'react-native';
+import { TouchableOpacity, StyleSheet, Text, Dimensions } from 'react-native';
 
 const BigAudioButton = ({ onPress }) => {
   const [isRecording, setIsRecording] = useState(false);
@@ -9,8 +9,11 @@ const BigAudioButton = ({ onPress }) => {
     onPress();
   };
 
+  const screenWidth = Dimensions.get('window').width;
+  const buttonSize = screenWidth * 0.8;
+
   return (
-    <TouchableOpacity style={styles.button} onPress={handlePress}>
+    <TouchableOpacity style={[styles.button, { width: buttonSize, height: buttonSize }]} onPress={handlePress}>
       <Text style={styles.title}>
         {isRecording ? 'Press to stop recording' : 'Press to talk'}
       </Text>
@@ -20,10 +23,8 @@ const BigAudioButton = ({ onPress }) => {
 
 const styles = StyleSheet.create({
   button: {
-    backgroundColor: 'black',
+    backgroundColor: 'blue',
     borderRadius: 100,
-    width: 250,
-    height: 250,
     alignItems: 'center',
     justifyContent: 'center',
   },
@@ -31,7 +32,6 @@ const styles = StyleSheet.create({
     fontSize: 24,
     fontWeight: 'bold',
     color: 'white',
-    textAlign:'center'
   },
 });
 
