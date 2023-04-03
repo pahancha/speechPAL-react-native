@@ -10,11 +10,22 @@ const AudioRecordingScreen = () => {
   };
 
   return (
+
     <View style={styles.container}>
-      <Text style={styles.largeTitle}>Press below button to talk</Text>
+      <Text style={styles.largeTitle}>Press below button {'\n'} to speak.</Text>
+
         <Text style={styles.smallTitle}>Press button again to stop recording</Text>
-      <BigAudioButton title={isRecording ? 'STOP' : 'START'} onPress={handlePress} />
+
+        <BigAudioButton title={isRecording ? 'STOP' : 'START'} onPress={handlePress} />
+
+        <View style={styles.speech_text_area}>
+            <Text style={styles.speech_text}>The speech of the aphasic person will go here.</Text>
+        </View>
+        
+
+
     </View>
+
   );
 };
 
@@ -30,13 +41,23 @@ const styles = StyleSheet.create({
   largeTitle: {
     fontSize: 32,
     fontWeight: 'bold',
-    marginBottom: 20,
-    textAlign: 'center'
+    textAlign: 'center',
+    paddingLeft: 15,
+    paddingRight: 15,
+    // marginVertical: 50,
   },
   smallTitle: {
     fontSize: 16,
     marginBottom: 20,
+    fontWeight: '800'
   },
+  speech_text: {
+    fontSize: 16,
+    fontWeight: '300'
+  },
+  speech_text_area : {
+    padding: 25
+  }
 });
 
 export default AudioRecordingScreen;

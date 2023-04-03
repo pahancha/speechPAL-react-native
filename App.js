@@ -3,12 +3,14 @@ import { StyleSheet, Text, View } from 'react-native';
 import { TouchableOpacity } from 'react-native';
 import BigAudioButton from './src/components/BigAudioButton';
 import AudioRecordingScreen from './src/screens/AudioRecordingScreen';
+import AudioScreenAni from './src/screens/AudioScreenAni';
 
 
 export default function App() {
   return (
     <View style={styles.container}>
     <AudioRecordingScreen/>
+    {/* <AudioScreenAni /> */}
     </View>
   );
 }

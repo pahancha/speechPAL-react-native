@@ -11,9 +11,12 @@ const BigAudioButton = ({ onPress }) => {
 
   const screenWidth = Dimensions.get('window').width;
   const buttonSize = screenWidth * 0.8;
+  const buttonColor = isRecording ? '#404040' : '#000000';
+//   const buttonColor = isRecording ? '#115931' : '#000000';
+
 
   return (
-    <TouchableOpacity style={[styles.button, { width: buttonSize, height: buttonSize }]} onPress={handlePress}>
+    <TouchableOpacity style={[styles.button, { width: buttonSize, height: buttonSize, backgroundColor: buttonColor }]} onPress={handlePress}>
       <Text style={styles.title}>
         {isRecording ? 'Press to stop recording' : 'Press to talk'}
       </Text>
@@ -23,7 +26,6 @@ const BigAudioButton = ({ onPress }) => {
 
 const styles = StyleSheet.create({
   button: {
-    backgroundColor: 'blue',
     borderRadius: 100,
     alignItems: 'center',
     justifyContent: 'center',
@@ -32,6 +34,8 @@ const styles = StyleSheet.create({
     fontSize: 24,
     fontWeight: 'bold',
     color: 'white',
+    padding: 50,
+    textAlign: 'center'
   },
 });
 
