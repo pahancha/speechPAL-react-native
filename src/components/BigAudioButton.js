@@ -1,10 +1,19 @@
-import React from 'react';
+import React, { useState } from 'react';
 import { TouchableOpacity, StyleSheet, Text } from 'react-native';
 
-const BigAudioButton = ({ title, onPress }) => {
+const BigAudioButton = ({ onPress }) => {
+  const [isRecording, setIsRecording] = useState(false);
+
+  const handlePress = () => {
+    setIsRecording((prevIsRecording) => !prevIsRecording);
+    onPress();
+  };
+
   return (
-    <TouchableOpacity style={styles.button} onPress={onPress}>
-      <Text style={styles.title}>Press</Text>
+    <TouchableOpacity style={styles.button} onPress={handlePress}>
+      <Text style={styles.title}>
+        {isRecording ? 'Press to stop recording' : 'Press to talk'}
+      </Text>
     </TouchableOpacity>
   );
 };
@@ -13,8 +22,8 @@ const styles = StyleSheet.create({
   button: {
     backgroundColor: 'black',
     borderRadius: 100,
-    width: 200,
-    height: 200,
+    width: 250,
+    height: 250,
     alignItems: 'center',
     justifyContent: 'center',
   },
@@ -22,12 +31,8 @@ const styles = StyleSheet.create({
     fontSize: 24,
     fontWeight: 'bold',
     color: 'white',
+    textAlign:'center'
   },
 });
 
 export default BigAudioButton;
-
-
-
-
-
