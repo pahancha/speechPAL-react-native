@@ -1,11 +1,12 @@
 import React, { useState, useEffect, useContext } from 'react';
-import { TouchableOpacity, StyleSheet, Text, Dimensions, Platform } from 'react-native';
+import { TouchableOpacity, StyleSheet, Text, Dimensions, Platform, View, ActivityIndicator } from 'react-native';
 import { Audio } from 'expo-av';
 import { TranscribedTextContext } from '../contexts/TranscribedTextContext';
 
 const BigAudioButton = (props) => {
   const [isRecording, setIsRecording] = useState(false);
   const [recordingInstance, setRecordingInstance] = useState(null);
+  const [isLoading, setIsLoading] = useState(false);
 
   // context api related
   const { setTranscribedText } = useContext(TranscribedTextContext);
@@ -37,6 +38,7 @@ const BigAudioButton = (props) => {
 
   const handleStopRecording = async () => {
     setIsRecording(false);
+    setIsLoading(true);
     await recordingInstance.stopAndUnloadAsync();
 
     const fileURI = recordingInstance.getURI();
@@ -61,9 +63,11 @@ const BigAudioButton = (props) => {
       const generatedSentences = data.results.map(result => result.generatedSentence);
       console.log("Generated sentences:", generatedSentences);  // Log the generated sentences
       setTranscribedText(generatedSentences);
+      setIsLoading(false);
     })
     .catch(error => {
       console.error('Error:', error);
+      setIsLoading(false);
     });  
   };
 
@@ -71,18 +75,26 @@ const BigAudioButton = (props) => {
   const screenHeight = Dimensions.get('window').height;
   const buttonWidth= screenWidth * 0.9;
   const buttonHeight= screenHeight * 0.3;
-  const buttonColor = isRecording ? '#404040' : '#000000';
+  const buttonColor = isRecording ? (isLoading ? '#FF0000' : '#404040') : '#000000';
 
   const handlePress = () => {
     isRecording ? handleStopRecording() : handleStartRecording();
   };
 
   return (
-    <TouchableOpacity style={[styles.button, { width: buttonWidth, height: buttonHeight, backgroundColor: buttonColor }]} onPress={handlePress}>
-      <Text style={styles.title}>
-        {isRecording ? 'Press to stop recording' : 'Press to talk'}
-      </Text>
-    </TouchableOpacity>
+    <View>
+    
+      <TouchableOpacity disabled={isLoading} style={[styles.button, { width: buttonWidth, height: buttonHeight, backgroundColor: buttonColor }]} onPress={handlePress}>
+        <Text style={styles.title}>
+          {isRecording ? 'Press to stop recording' : 'Press to talk'}
+        </Text>
+      </TouchableOpacity>
+      {isLoading && (
+        <View style={styles.loadingContainer}> 
+          <ActivityIndicator size={'large'}></ActivityIndicator>
+        </View>
+      )}
+    </View>  
   );
 };
 
@@ -99,6 +111,15 @@ const styles = StyleSheet.create({
     padding: 50,
     textAlign: 'center'
   },
+  loadingContainer:{
+    position: 'absolute',
+    top: 0,
+    bottom: 0,
+    left: 0,
+    right: 0,
+    justifyContent: 'center',
+    alignItems: 'center',
+  }
 });
 
 export default BigAudioButton;
