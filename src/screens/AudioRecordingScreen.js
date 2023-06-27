@@ -7,7 +7,10 @@ const AudioRecordingScreen = () => {
 
   const handlePress = () => {
     setIsRecording((prevIsRecording) => !prevIsRecording);
+    
   };
+
+  
 
   return (
 
