@@ -50,7 +50,7 @@ const styles = StyleSheet.create({
     padding: 10,
     backgroundColor: '#F5F2F2',
     borderRadius: 8,
-    width: Dimensions.get('window').width / 3.5,
+    width: Dimensions.get('window').width / 2.5,
     margin: 5,
     shadowColor: '#000',
     shadowOffset: { width: 0, height: 4 },
@@ -61,7 +61,7 @@ const styles = StyleSheet.create({
   
   buttonText: {
     textTransform: 'uppercase',
-    fontWeight: 'bold',
+    fontWeight: '500',
     color: '#000',
   },
   selectedButton: {

@@ -2,6 +2,7 @@ import React, { useState } from 'react';
 import { View, Text, StyleSheet, SafeAreaView, ScrollView } from 'react-native';
 import BigAudioButton from '../components/BigAudioButton';
 import SelectClassButtons from '../components/SelectClassButtons';
+import TranscribedText from '../components/TranscribedText';
 
 const AudioRecordingScreen = () => {
   const [isRecording, setIsRecording] = useState(false);
@@ -12,23 +13,24 @@ const AudioRecordingScreen = () => {
   };
 
   return (
-    <SafeAreaView style={{ flex: 1 }}>
-      <ScrollView contentContainerStyle={styles.container}>
+    <View>
+    
         <Text style={styles.largeTitle}>Press below button {'\n'} to speak.</Text>
+
         <SelectClassButtons selectedContext={selectedContext} setSelectedContext={setSelectedContext} />
 
 
-        <Text style={styles.smallTitle}>Press button again to stop recording</Text>
-
-        <BigAudioButton title={isRecording ? 'STOP' : 'START'} onPress={handlePress} />
-        
+        <View style={styles.centerContent}>
+            <Text style={styles.smallTitle}>Press button again to stop recording</Text>
+            <BigAudioButton title={isRecording ? 'STOP' : 'START'} onPress={handlePress} selectedContext={selectedContext} />
+        </View>
         
         <View style={styles.speech_text_area}>
-          <Text style={styles.speech_text}>The speech of the aphasic person will go here.</Text>
+          <TranscribedText />
         </View>
 
-      </ScrollView>
-    </SafeAreaView>
+    
+    </View>
   );
 };
 
@@ -58,7 +60,10 @@ const styles = StyleSheet.create({
   },
   speech_text_area : {
     padding: 10
-  }
+  },
+  centerContent: {
+    alignItems: 'center',
+  },
 
 });
 

@@ -27,6 +27,7 @@ const BigAudioButton = (props) => {
   }, []);
 
   const handleStartRecording = async () => {
+    console.log("Button pressed.")
     setIsRecording(true);
     const recording = new Audio.Recording();
     await recording.prepareToRecordAsync(Audio.RECORDING_OPTIONS_PRESET_HIGH_QUALITY);
@@ -48,6 +49,9 @@ const BigAudioButton = (props) => {
     });
     formData.append('choice', props.selectedContext);
 
+    console.log("About to make fetch request");
+
+
     fetch('http://127.0.0.1:5000/generate-with-choice', {
       method: 'POST',
       body: formData,
@@ -55,17 +59,18 @@ const BigAudioButton = (props) => {
     .then(response => response.json())
     .then(data => {
       const generatedSentences = data.results.map(result => result.generatedSentence);
+      console.log("Generated sentences:", generatedSentences);  // Log the generated sentences
       setTranscribedText(generatedSentences);
     })
     .catch(error => {
       console.error('Error:', error);
-    });
+    });  
   };
 
   const screenWidth = Dimensions.get('window').width;
   const screenHeight = Dimensions.get('window').height;
-  const buttonWidth= screenWidth * 0.8;
-  const buttonHeight= screenHeight * 0.5;
+  const buttonWidth= screenWidth * 0.9;
+  const buttonHeight= screenHeight * 0.3;
   const buttonColor = isRecording ? '#404040' : '#000000';
 
   const handlePress = () => {
