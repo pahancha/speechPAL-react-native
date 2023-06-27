@@ -1,34 +1,26 @@
 import React, { useState } from 'react';
 import { View, Text, StyleSheet } from 'react-native';
 import BigAudioButton from '../components/BigAudioButton';
+import SelectClassButtons from '../components/SelectClassButtons';
 
 const AudioRecordingScreen = () => {
   const [isRecording, setIsRecording] = useState(false);
+  const [selectedContext, setSelectedContext] = useState('general:');
 
   const handlePress = () => {
     setIsRecording((prevIsRecording) => !prevIsRecording);
-    
   };
 
-  
-
   return (
-
     <View style={styles.container}>
       <Text style={styles.largeTitle}>Press below button {'\n'} to speak.</Text>
-
-        <Text style={styles.smallTitle}>Press button again to stop recording</Text>
-
-        <BigAudioButton title={isRecording ? 'STOP' : 'START'} onPress={handlePress} />
-
-        <View style={styles.speech_text_area}>
-            <Text style={styles.speech_text}>The speech of the aphasic person will go here.</Text>
-        </View>
-        
-
-
+      <SelectClassButtons selectedContext={selectedContext} setSelectedContext={setSelectedContext} />
+      <Text style={styles.smallTitle}>Press button again to stop recording</Text>
+      <BigAudioButton title={isRecording ? 'STOP' : 'START'} onPress={handlePress} selectedContext={selectedContext} />
+      <View style={styles.speech_text_area}>
+        <Text style={styles.speech_text}>The speech of the aphasic person will go here.</Text>
+      </View>
     </View>
-
   );
 };
 
@@ -39,7 +31,6 @@ const styles = StyleSheet.create({
     justifyContent: 'center',
     backgroundColor: '#f2f2f2',
     padding: 20,
-   
   },
   largeTitle: {
     fontSize: 32,
@@ -47,7 +38,6 @@ const styles = StyleSheet.create({
     textAlign: 'center',
     paddingLeft: 15,
     paddingRight: 15,
-    // marginVertical: 50,
   },
   smallTitle: {
     fontSize: 16,
